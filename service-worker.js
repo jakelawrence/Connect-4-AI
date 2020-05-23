@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Unbeatable-Connect-4-AI/precache-manifest.65d146cf25c0a4d0365057acfa297ec3.js"
+  "/Unbeatable-Connect-4-AI/precache-manifest.a17fb65b808751bfdcf6aa7896c5e74e.js"
 );
 
 self.addEventListener('message', (event) => {

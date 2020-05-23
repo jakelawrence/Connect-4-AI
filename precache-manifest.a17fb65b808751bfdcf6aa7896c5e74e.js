@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e30fb20e07dd6359ae4e32595d254060",
+    "revision": "8802e73d5a88a3b715cbf35ec860cac8",
     "url": "/Unbeatable-Connect-4-AI/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Unbeatable-Connect-4-AI/static/css/2.829c9cb5.chunk.css"
   },
   {
-    "revision": "2c884a42f3db9f44a7f3",
-    "url": "/Unbeatable-Connect-4-AI/static/css/main.b1c13860.chunk.css"
+    "revision": "e54343a27799475102b0",
+    "url": "/Unbeatable-Connect-4-AI/static/css/main.db0b277b.chunk.css"
   },
   {
     "revision": "9454063d044d33308ac3",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Unbeatable-Connect-4-AI/static/js/2.599a8dc0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2c884a42f3db9f44a7f3",
-    "url": "/Unbeatable-Connect-4-AI/static/js/main.a06208e7.chunk.js"
+    "revision": "e54343a27799475102b0",
+    "url": "/Unbeatable-Connect-4-AI/static/js/main.5cf5447b.chunk.js"
   },
   {
     "revision": "36440aab28ce6f5a5616",
