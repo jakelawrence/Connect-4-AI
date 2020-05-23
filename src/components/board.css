@@ -1,12 +1,45 @@
 .backdrop {
   width: auto;
-  height: 50vw;
 }
 .grid {
   transform: rotateX(180deg);
+  width: 100%;
 }
 .row {
   align-items: center;
+  margin: 0 auto;
+  display: flex;
   justify-content: center;
+  position: relative;
+}
+.head {
+  margin: auto;
+  margin-top: 30px;
+  cursor: default;
+  background-color: #fed766;
+
+  width: 50vw;
+}
+
+.foot {
+  margin: auto;
+  cursor: default;
+  background-color: black;
+
+  height: 6vw;
+  width: 50vw;
+}
+.title {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  color: black;
+  padding: 1vw;
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+.main {
+  background-color: black;
+  width: 50vw;
+  height: 100%;
   margin: auto;
 }

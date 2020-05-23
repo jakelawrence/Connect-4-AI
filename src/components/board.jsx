@@ -13,9 +13,9 @@ const CENTER_COLUMN = Math.floor(COLUMNS / 2);
 class Board extends Component {
   state = {
     grid: [],
-    nextOpenRow: [],
-    gameInProgress: true,
-    winner: 0,
+    winnerColor: "",
+    winner: "",
+    gameOver: false,
   };
 
   componentDidMount() {
@@ -24,59 +24,96 @@ class Board extends Component {
   }
 
   handleClick(col) {
-    let newGrid = dropPiece(this.state.grid, col, PLAYER);
-    this.setState({ grid: newGrid });
-    if (checkForWin(this.state.grid, PLAYER)) {
-      console.log("PLAYER WINS");
-    }
-    let minimaxReturn = minimax(this.state.grid);
-    console.log(minimaxReturn);
-    let rowAI = getNextOpenRow(minimaxReturn.move, this.state.grid);
-    if (rowAI < ROWS - 1) {
-      let newGrid = getNewGrid(rowAI, minimaxReturn.move, this.state.grid, AI);
-      this.setState({ grid: newGrid });
-      if (checkForWin(this.state.grid, AI)) {
-        console.log("AI WINS");
+    if (!this.state.gameOver) {
+      if (this.state.grid[ROWS - 2][col].piece === 0) {
+        let newGrid = dropPiece(this.state.grid, col, PLAYER);
+        this.setState({ grid: newGrid });
+        let forWinPlayer = checkForWin(this.state.grid, PLAYER);
+        if (forWinPlayer.isWin) {
+          let finalGrid = highlightWin(forWinPlayer, this.state.grid);
+          this.setState({
+            grid: finalGrid,
+            winner: "YOU WIN!",
+            winnerColor: "red",
+            gameOver: true,
+          });
+          return;
+        }
+        let minimaxReturn = minimax(this.state.grid);
+        console.log(minimaxReturn);
+        let rowAI = getNextOpenRow(minimaxReturn.move, this.state.grid);
+        if (rowAI < ROWS - 1) {
+          let newGrid = getNewGrid(
+            rowAI,
+            minimaxReturn.move,
+            this.state.grid,
+            AI
+          );
+          this.setState({ grid: newGrid });
+          let forWinAI = checkForWin(this.state.grid, AI);
+          if (forWinAI.isWin) {
+            let finalGrid = highlightWin(forWinAI, this.state.grid);
+            this.setState({
+              grid: finalGrid,
+              winner: "AI WINS!",
+              winnerColor: "gold",
+              gameOver: true,
+            });
+            return;
+          }
+        }
       }
     }
   }
 
   render() {
     const { grid } = this.state;
-    const { gameInProgress } = this.state;
+
     return (
       <div className="backdrop">
-        <div className="grid">
-          {grid.map((row, rowIdx) => {
-            return (
-              <div className="row" key={rowIdx}>
-                {row.map((node, nodeIdx) => {
-                  const {
-                    row,
-                    col,
-                    isEmpty,
-                    isPlayer,
-                    isAI,
-                    isSelector,
-                  } = node;
+        <div className="head">
+          <div className="title">Connect 4</div>
+        </div>
+        <div className="main">
+          <div className="grid">
+            {grid.map((row, rowIdx) => {
+              return (
+                <div className="row" key={rowIdx}>
+                  {row.map((node, nodeIdx) => {
+                    const {
+                      row,
+                      col,
+                      isEmpty,
+                      isPlayer,
+                      isAI,
+                      isSelector,
+                      isWinningPiece,
+                    } = node;
 
-                  return (
-                    <Node
-                      style={{ backgroundColor: "blue" }}
-                      key={nodeIdx}
-                      col={col}
-                      row={row}
-                      isEmpty={isEmpty}
-                      isPlayer={isPlayer}
-                      isAI={isAI}
-                      isSelector={isSelector}
-                      onClick={(col, grid) => this.handleClick(col)}
-                    ></Node>
-                  );
-                })}
-              </div>
-            );
-          })}
+                    return (
+                      <Node
+                        style={{ backgroundColor: "blue" }}
+                        key={nodeIdx}
+                        col={col}
+                        row={row}
+                        isEmpty={isEmpty}
+                        isPlayer={isPlayer}
+                        isAI={isAI}
+                        isSelector={isSelector}
+                        isWinningPiece={isWinningPiece}
+                        onClick={(col, grid) => this.handleClick(col)}
+                      ></Node>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="foot">
+          <div style={{ color: this.state.winnerColor }} className="title">
+            {this.state.winner}
+          </div>
         </div>
       </div>
     );
@@ -96,7 +133,7 @@ const minimax = (grid) => {
     move: null,
     score: -Infinity,
   };
-  best.move = Math.floor(Math.random() * COLUMNS);
+
   let alpha = -Infinity;
   let beta = Infinity;
   let legalMoves = getValidDrops(grid);
@@ -104,7 +141,8 @@ const minimax = (grid) => {
     let gridCopy = JSON.parse(JSON.stringify(grid));
     let newBoard = dropPiece(gridCopy, col, AI);
     let moveScore = min(newBoard, alpha, beta, 1);
-    if (moveScore > best.score) {
+
+    if (moveScore >= best.score) {
       best.score = moveScore;
       best.move = col;
     }
@@ -125,9 +163,7 @@ const max = (grid, alpha, beta, currentDepth) => {
       let gridCopy = JSON.parse(JSON.stringify(grid));
       let newBoard = dropPiece(gridCopy, legalMoves[i], AI);
       let moveScore = min(newBoard, alpha, beta, currentDepth + 1);
-      if (moveScore > score) {
-        score = moveScore;
-      }
+      score = Math.max(score, moveScore);
       alpha = Math.max(alpha, score);
       if (alpha >= beta) {
         break;
@@ -150,9 +186,7 @@ const min = (grid, alpha, beta, currentDepth) => {
       let gridCopy = JSON.parse(JSON.stringify(grid));
       let newBoard = dropPiece(gridCopy, legalMoves[i], PLAYER);
       let moveScore = max(newBoard, alpha, beta, currentDepth + 1);
-      if (moveScore < score) {
-        score = moveScore;
-      }
+      score = Math.min(score, moveScore);
       beta = Math.min(beta, score);
       if (alpha >= beta) {
         break;
@@ -164,10 +198,10 @@ const min = (grid, alpha, beta, currentDepth) => {
 };
 
 const evaluateEnd = (grid) => {
-  if (checkForWin(grid, AI) === true) {
-    return Infinity;
-  } else if (checkForWin(grid, PLAYER) === true) {
-    return -Infinity;
+  if (checkForWin(grid, AI).isWin === true) {
+    return 10000000;
+  } else if (checkForWin(grid, PLAYER).isWin === true) {
+    return -10000000;
   } else {
     return 0;
   }
@@ -244,18 +278,11 @@ const evaluateWindow = (window) => {
     score += 100;
   } else if (ai_pieces === 3 && empty_pieces === 1) {
     score += 5;
-  } else if (ai_pieces === 2 && empty_pieces === 2) {
-    score += 2;
   }
 
   if (player_pieces === 3 && empty_pieces === 1) {
-    score -= 7;
-  } else if (player_pieces === 2 && empty_pieces === 2) {
-    score -= 5;
-  } else if (player_pieces === 2 && empty_pieces === 2) {
-    score -= 3;
+    score -= 4;
   }
-
   return score;
 };
 
@@ -272,8 +299,8 @@ const getValidDrops = (grid) => {
 const isTerminalGrid = (grid) => {
   let validDrops = getValidDrops(grid);
   if (
-    checkForWin(grid, PLAYER) ||
-    checkForWin(grid, AI) ||
+    checkForWin(grid, PLAYER).isWin ||
+    checkForWin(grid, AI).isWin ||
     validDrops.length === 0
   ) {
     return true;
@@ -284,7 +311,25 @@ const isTerminalGrid = (grid) => {
 
 const checkForWin = (grid, turn) => {
   //check horizontal wins
-
+  let fourInARow = {
+    isWin: false,
+    one: {
+      r: 0,
+      c: 0,
+    },
+    two: {
+      r: 0,
+      c: 0,
+    },
+    three: {
+      r: 0,
+      c: 0,
+    },
+    four: {
+      r: 0,
+      c: 0,
+    },
+  };
   for (let c = 0; c < COLUMNS - 3; c++) {
     for (let r = 0; r < ROWS - 1; r++) {
       if (
@@ -293,7 +338,16 @@ const checkForWin = (grid, turn) => {
         grid[r][c + 2].piece === turn &&
         grid[r][c + 3].piece === turn
       ) {
-        return true;
+        fourInARow.one.r = r;
+        fourInARow.one.c = c;
+        fourInARow.two.r = r;
+        fourInARow.two.c = c + 1;
+        fourInARow.three.r = r;
+        fourInARow.three.c = c + 2;
+        fourInARow.four.r = r;
+        fourInARow.four.c = c + 3;
+        fourInARow.isWin = true;
+        return fourInARow;
       }
     }
   }
@@ -306,7 +360,16 @@ const checkForWin = (grid, turn) => {
         grid[r + 2][c].piece === turn &&
         grid[r + 3][c].piece === turn
       ) {
-        return true;
+        fourInARow.one.r = r;
+        fourInARow.one.c = c;
+        fourInARow.two.r = r + 1;
+        fourInARow.two.c = c;
+        fourInARow.three.r = r + 2;
+        fourInARow.three.c = c;
+        fourInARow.four.r = r + 3;
+        fourInARow.four.c = c;
+        fourInARow.isWin = true;
+        return fourInARow;
       }
     }
   }
@@ -319,7 +382,16 @@ const checkForWin = (grid, turn) => {
         grid[r + 2][c + 2].piece === turn &&
         grid[r + 3][c + 3].piece === turn
       ) {
-        return true;
+        fourInARow.one.r = r;
+        fourInARow.one.c = c;
+        fourInARow.two.r = r + 1;
+        fourInARow.two.c = c + 1;
+        fourInARow.three.r = r + 2;
+        fourInARow.three.c = c + 2;
+        fourInARow.four.r = r + 3;
+        fourInARow.four.c = c + 3;
+        fourInARow.isWin = true;
+        return fourInARow;
       }
     }
   }
@@ -332,10 +404,28 @@ const checkForWin = (grid, turn) => {
         grid[r - 2][c + 2].piece === turn &&
         grid[r - 3][c + 3].piece === turn
       ) {
-        return true;
+        fourInARow.one.r = r;
+        fourInARow.one.c = c;
+        fourInARow.two.r = r - 1;
+        fourInARow.two.c = c + 1;
+        fourInARow.three.r = r - 2;
+        fourInARow.three.c = c + 2;
+        fourInARow.four.r = r - 3;
+        fourInARow.four.c = c + 3;
+        fourInARow.isWin = true;
+        return fourInARow;
       }
     }
   }
+  return fourInARow;
+};
+
+const highlightWin = (fourInARow, grid) => {
+  grid[fourInARow.one.r][fourInARow.one.c].isWinningPiece = true;
+  grid[fourInARow.two.r][fourInARow.two.c].isWinningPiece = true;
+  grid[fourInARow.three.r][fourInARow.three.c].isWinningPiece = true;
+  grid[fourInARow.four.r][fourInARow.four.c].isWinningPiece = true;
+  return grid;
 };
 
 const getNextOpenRow = (col, grid) => {
@@ -380,6 +470,7 @@ const createNode = (col, row, piece) => {
     isPlayer: false,
     isAI: false,
     isSelector: row === ROWS - 1,
+    isWinningPiece: false,
   };
 };
 

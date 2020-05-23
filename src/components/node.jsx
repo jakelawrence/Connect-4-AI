@@ -10,6 +10,7 @@ class Node extends Component {
       isPlayer,
       isAI,
       isSelector,
+      isWinningPiece,
       onClick,
     } = this.props;
     const extraClassName = isEmpty
@@ -24,11 +25,13 @@ class Node extends Component {
     const backGroundClass = isSelector
       ? "selectorBackgound"
       : "pieceBackground";
+
+    const winningClass = isWinningPiece ? "winningPiece" : "";
     return (
       <div className={`${backGroundClass}`}>
         <div
           id={`piece-${row}-${col}`}
-          className={`piece ${extraClassName}`}
+          className={`piece ${extraClassName} ${winningClass}`}
           onClick={() => onClick(col)}
         ></div>
       </div>

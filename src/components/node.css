@@ -5,20 +5,20 @@
   width: 4vw;
   height: 4vw;
   border-radius: 50%;
-  margin: 10px;
+  margin: 0.5vw;
 }
 .piece-empty {
-  border: 2px solid black;
-  background-color: white;
+  border: 2px solid white;
+  background-color: black;
 }
 
 .piece-player {
-  border: 2px solid black;
+  border: 2px solid white;
   background-color: red;
 }
 
 .piece-AI {
-  border: 2px solid black;
+  border: 2px solid white;
   background-color: gold;
 }
 
@@ -29,9 +29,10 @@
 
 .piece-selector:hover {
   background-color: red;
-  border: 2px solid black;
+  border: 2px solid white;
+  cursor: pointer;
 }
 
-.piece-selector:hover::after {
-  border-radius: 5px;
+.winningPiece {
+  border: 4px solid #297d1f !important;
 }
