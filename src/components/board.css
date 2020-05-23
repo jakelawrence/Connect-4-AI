@@ -1,0 +1,11 @@
+.grid {
+  margin: 10vw;
+  transform: rotateX(180deg);
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-bottom: -2px;
+}
