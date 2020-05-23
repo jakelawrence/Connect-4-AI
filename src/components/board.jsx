@@ -45,30 +45,39 @@ class Board extends Component {
     const { grid } = this.state;
     const { gameInProgress } = this.state;
     return (
-      <div className="grid">
-        {grid.map((row, rowIdx) => {
-          return (
-            <div className="row" key={rowIdx}>
-              {row.map((node, nodeIdx) => {
-                const { row, col, isEmpty, isPlayer, isAI, isSelector } = node;
+      <div className="backdrop">
+        <div className="grid">
+          {grid.map((row, rowIdx) => {
+            return (
+              <div className="row" key={rowIdx}>
+                {row.map((node, nodeIdx) => {
+                  const {
+                    row,
+                    col,
+                    isEmpty,
+                    isPlayer,
+                    isAI,
+                    isSelector,
+                  } = node;
 
-                return (
-                  <Node
-                    style={{ backgroundColor: "blue" }}
-                    key={nodeIdx}
-                    col={col}
-                    row={row}
-                    isEmpty={isEmpty}
-                    isPlayer={isPlayer}
-                    isAI={isAI}
-                    isSelector={isSelector}
-                    onClick={(col, grid) => this.handleClick(col)}
-                  ></Node>
-                );
-              })}
-            </div>
-          );
-        })}
+                  return (
+                    <Node
+                      style={{ backgroundColor: "blue" }}
+                      key={nodeIdx}
+                      col={col}
+                      row={row}
+                      isEmpty={isEmpty}
+                      isPlayer={isPlayer}
+                      isAI={isAI}
+                      isSelector={isSelector}
+                      onClick={(col, grid) => this.handleClick(col)}
+                    ></Node>
+                  );
+                })}
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

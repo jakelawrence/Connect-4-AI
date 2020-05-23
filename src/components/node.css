@@ -2,13 +2,13 @@
   background-color: blue;
 }
 .piece {
-  width: 2.5vw;
-  height: 2.5vw;
+  width: 3vw;
+  height: 3vw;
   border-radius: 50%;
-  margin: 5px;
+  margin: 10px;
 }
 .piece-empty {
-  background-color: black;
+  background-color: white;
 }
 
 .piece-player {
@@ -16,12 +16,12 @@
 }
 
 .piece-AI {
-  background-color: yellow;
+  background-color: gold;
 }
 
 .piece-selector {
-  width: 2.5vw;
-  height: 2.5vw;
+  width: 3vw;
+  height: 3vw;
 }
 
 .piece-selector:hover {

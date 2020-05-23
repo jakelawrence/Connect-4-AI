@@ -7,7 +7,6 @@ import "bootstrap/dist/css/bootstrap.css";
 function App() {
   return (
     <div className="App">
-      <Head></Head>
       <Board></Board>
     </div>
   );
