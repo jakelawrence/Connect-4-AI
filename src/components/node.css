@@ -2,28 +2,36 @@
   background-color: blue;
 }
 .piece {
-  width: 3vw;
-  height: 3vw;
+  width: 4vw;
+  height: 4vw;
   border-radius: 50%;
   margin: 10px;
 }
 .piece-empty {
+  border: 2px solid black;
   background-color: white;
 }
 
 .piece-player {
+  border: 2px solid black;
   background-color: red;
 }
 
 .piece-AI {
+  border: 2px solid black;
   background-color: gold;
 }
 
 .piece-selector {
-  width: 3vw;
-  height: 3vw;
+  width: 4vw;
+  height: 4vw;
 }
 
 .piece-selector:hover {
   background-color: red;
+  border: 2px solid black;
+}
+
+.piece-selector:hover::after {
+  border-radius: 5px;
 }
