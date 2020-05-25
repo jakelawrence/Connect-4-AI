@@ -2,7 +2,7 @@
   "name": "connect4",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jakelawrence.github.io/Unbeatable-Connect-4-AI/",
+  "homepage": "https://jakelawrence.github.io/Connect-4-AI/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
