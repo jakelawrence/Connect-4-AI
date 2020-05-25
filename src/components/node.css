@@ -2,8 +2,8 @@
   background-color: blue;
 }
 .piece {
-  width: 4vw;
-  height: 4vw;
+  width: 3.5vw;
+  height: 3.5vw;
   border-radius: 50%;
   margin: 0.5vw;
 }
@@ -23,8 +23,8 @@
 }
 
 .piece-selector {
-  width: 4vw;
-  height: 4vw;
+  width: 3.5vw;
+  height: 3.5vw;
 }
 
 .piece-selector:hover {
@@ -34,5 +34,5 @@
 }
 
 .winningPiece {
-  border: 4px solid #297d1f !important;
+  border: 4px solid #00ff37 !important;
 }
