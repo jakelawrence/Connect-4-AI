@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Node from "./node.jsx";
+import { CSSTransition } from "react-transition-group";
 
 import "./board.css";
 
@@ -140,7 +141,7 @@ class Board extends Component {
     return (
       <div className="backdrop">
         <div className="head">
-          <div className="title">Connect 4 AI</div>
+          <div className="title">CONNECT 4 AI</div>
           <div className="btn-group" role="group" aria-label="Basic example">
             <button
               type="button"
