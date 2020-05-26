@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Node from "./node.jsx";
-import { CSSTransition } from "react-transition-group";
 
 import "./board.css";
 
@@ -171,7 +170,7 @@ class Board extends Component {
           <div className="newGame">
             <button
               type="button"
-              className="btn btn-info btn-sm btn-block"
+              className="btn btn-info btn-sm"
               onClick={() => this.resetGrid()}
             >
               New Game

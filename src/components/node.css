@@ -2,10 +2,10 @@
   background-color: blue;
 }
 .piece {
-  width: 3.5vw;
-  height: 3.5vw;
+  width: 3.5vmax;
+  height: 3.5vmax;
   border-radius: 50%;
-  margin: 0.5vw;
+  margin: 0.5vmax;
 }
 .piece-empty {
   border: 2px solid white;
@@ -23,8 +23,8 @@
 }
 
 .piece-selector {
-  width: 3.5vw;
-  height: 3.5vw;
+  width: 3.5vmax;
+  height: 3.5vmax;
 }
 
 .piece-selector:hover {

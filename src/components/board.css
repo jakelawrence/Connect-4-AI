@@ -1,4 +1,6 @@
 .backdrop {
+  padding-top: 6vmin;
+  padding-bottom: 6vmin;
   width: auto;
 }
 .grid {
@@ -14,35 +16,34 @@
 }
 .head {
   margin: auto;
-  margin-top: 5vh;
   cursor: default;
   background-color: #fed766;
-  box-shadow: 5px 10px 18px #888888;
-  width: 50vw;
+  box-shadow: 5px 15px 18px #adadad;
+  width: 40vmax;
 }
 
 .foot {
   margin: auto;
   cursor: default;
   background-color: black;
-  box-shadow: 5px 10px 18px #888888;
-  height: 6vw;
-  width: 50vw;
+  box-shadow: 7px 15px 18px #888;
+  height: 9vmax;
+  width: 40vmax;
 }
 .title {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
   color: black;
-  padding: 1vw;
-  font-size: 2.5vw;
+  padding: 1vmax;
+  font-size: 2vmax;
   font-weight: bold;
 }
 
 .main {
   background-color: black;
-  width: 50vw;
+  width: 40vmax;
   height: 100%;
   margin: auto;
-  box-shadow: 5px 10px 18px #888888;
+  box-shadow: 7px 15px 18px #888;
 }
 
 .btn {
@@ -52,11 +53,9 @@
 .btn-group {
   background-color: black;
   border-radius: 6px;
-  margin-bottom: 1vw;
+  margin-bottom: 1vmax;
 }
 
 .newGame {
-  padding-bottom: 1vw;
-  margin-left: 20vw;
-  margin-right: 20vw;
+  padding-bottom: 1vmax;
 }
