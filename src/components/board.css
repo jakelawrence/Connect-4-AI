@@ -1,6 +1,6 @@
 .backdrop {
-  padding-top: 6vmin;
-  padding-bottom: 6vmin;
+  padding-top: 10vh;
+
   width: auto;
 }
 .grid {
@@ -19,7 +19,7 @@
   cursor: default;
   background-color: #fed766;
   box-shadow: 5px 15px 18px #adadad;
-  width: 40vmax;
+  width: 80vh;
 }
 
 .foot {
@@ -27,20 +27,20 @@
   cursor: default;
   background-color: black;
   box-shadow: 7px 15px 18px #888;
-  height: 9vmax;
-  width: 40vmax;
+  height: 6vh;
+  width: 80vh;
 }
 .title {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
   color: black;
-  padding: 1vmax;
-  font-size: 2vmax;
+  padding: 1vh;
+  font-size: 2.5vh;
   font-weight: bold;
 }
 
 .main {
   background-color: black;
-  width: 40vmax;
+  width: 80vh;
   height: 100%;
   margin: auto;
   box-shadow: 7px 15px 18px #888;
@@ -50,12 +50,52 @@
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
 }
 
-.btn-group {
-  background-color: black;
+.difficultyGroup {
   border-radius: 6px;
-  margin-bottom: 1vmax;
+  margin-bottom: 1vh;
+}
+
+.difficultyButton {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 1.5vh;
+  font-weight: bold;
+  display: inline-block;
+  margin: 1vh;
+  cursor: pointer;
+}
+
+.difficultyButton:hover {
+  text-decoration: underline;
+}
+
+.difficultyButtonSelected {
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 1.5vh;
+  font-weight: bold;
+  display: inline-block;
+  margin: 1vh;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.newGameButton {
+  color: white;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  font-size: 1.5vh;
+  font-weight: bold;
+  display: inline-block;
+  margin: 1vh;
+  cursor: pointer;
+  padding: 0.7vh;
+  border-radius: 2px;
+  background-color: #17a2b8;
+}
+
+.newGameButton:hover {
+  transition: 0.5s;
+  background-color: #1c8d9e;
 }
 
 .newGame {
-  padding-bottom: 1vmax;
+  padding-bottom: 1vh;
 }

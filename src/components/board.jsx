@@ -16,7 +16,7 @@ class Board extends Component {
 
     //for winner message after game over
     winnerColor: "",
-    winner: "",
+    winner: " ",
 
     gameOver: false,
 
@@ -28,9 +28,9 @@ class Board extends Component {
       depth: 1,
 
       //css classes for buttons
-      easy: "btn btn-sm btn-success",
-      medium: "btn btn-sm btn-outline-warning",
-      hard: "btn btn-sm btn-outline-danger",
+      easy: "difficultyButtonSelected",
+      medium: "difficultyButton",
+      hard: "difficultyButton",
     },
   };
 
@@ -53,24 +53,27 @@ class Board extends Component {
     switch (difficulty) {
       case "easy":
         updateDifficulty.selectedDifficulty = "easy";
-        updateDifficulty.easy = "btn btn-sm btn-success";
-        updateDifficulty.medium = "btn btn-sm btn-outline-warning";
-        updateDifficulty.hard = "btn btn-sm btn-outline-danger";
+        updateDifficulty.easy = "difficultyButtonSelected";
+        updateDifficulty.medium = "difficultyButton";
+        updateDifficulty.hard = "difficultyButton";
         updateDifficulty.depth = 2;
+        this.resetGrid();
         break;
       case "medium":
         updateDifficulty.selectedDifficulty = "medium";
-        updateDifficulty.easy = "btn btn-sm btn-outline-success";
-        updateDifficulty.medium = "btn btn-sm btn-warning";
-        updateDifficulty.hard = "btn btn-sm btn-outline-danger";
+        updateDifficulty.easy = "difficultyButton";
+        updateDifficulty.medium = "difficultyButtonSelected";
+        updateDifficulty.hard = "difficultyButton";
         updateDifficulty.depth = 3;
+        this.resetGrid();
         break;
       default:
         updateDifficulty.selectedDifficulty = "hard";
-        updateDifficulty.easy = "btn btn-sm btn-outline-success";
-        updateDifficulty.medium = "btn btn-sm btn-outline-warning";
-        updateDifficulty.hard = "btn btn-sm btn-danger";
+        updateDifficulty.easy = "difficultyButton";
+        updateDifficulty.medium = "difficultyButton";
+        updateDifficulty.hard = "difficultyButtonSelected";
         updateDifficulty.depth = 5;
+        this.resetGrid();
         break;
     }
     this.setState({ difficulty: updateDifficulty });
@@ -99,36 +102,38 @@ class Board extends Component {
           });
           return;
         }
-      }
-      //get the score and column returned by the minimax
-      let minimaxReturn = minimax(
-        this.state.grid, //game board
-        this.state.difficulty.depth, //how many steps the minimax looks ahead
-        this.state.difficulty.selectedDifficulty //difficulty selected by user
-      );
-      // get the row that is corresponding to the column returned by minimax for the placement
-      let rowAI = getNextOpenRow(minimaxReturn.move, this.state.grid);
-      //double check the row isnt full
-      if (rowAI < ROWS - 1) {
-        let newGrid = getNewGrid(
-          rowAI,
-          minimaxReturn.move,
-          this.state.grid,
-          AI
+
+        //get the score and column returned by the minimax
+        let minimaxReturn = minimax(
+          this.state.grid, //game board
+          this.state.difficulty.depth, //how many steps the minimax looks ahead
+          this.state.difficulty.selectedDifficulty //difficulty selected by user
         );
-        this.setState({ grid: newGrid });
-        //check for four in a row
-        let forWinAI = checkForWin(this.state.grid, AI);
-        if (forWinAI.isWin) {
-          //highlight four in a row with css
-          let finalGrid = highlightWin(forWinAI, this.state.grid);
-          this.setState({
-            grid: finalGrid,
-            winner: "AI WINS!",
-            winnerColor: "gold",
-            gameOver: true,
-          });
-          return;
+        console.log(minimaxReturn);
+        // get the row that is corresponding to the column returned by minimax for the placement
+        let rowAI = getNextOpenRow(minimaxReturn.move, this.state.grid);
+        //double check the row isnt full
+        if (rowAI < ROWS - 1) {
+          let newGrid = getNewGrid(
+            rowAI,
+            minimaxReturn.move,
+            this.state.grid,
+            AI
+          );
+          this.setState({ grid: newGrid });
+          //check for four in a row
+          let forWinAI = checkForWin(this.state.grid, AI);
+          if (forWinAI.isWin) {
+            //highlight four in a row with css
+            let finalGrid = highlightWin(forWinAI, this.state.grid);
+            this.setState({
+              grid: finalGrid,
+              winner: "AI WINS!",
+              winnerColor: "gold",
+              gameOver: true,
+            });
+            return;
+          }
         }
       }
     }
@@ -141,40 +146,30 @@ class Board extends Component {
       <div className="backdrop">
         <div className="head">
           <div className="title">CONNECT 4 AI</div>
-          <div className="btn-group" role="group" aria-label="Basic example">
-            <button
-              type="button"
-              value="easy"
-              className={this.state.difficulty.easy}
+          <div className="difficultyGroup">
+            <div
               onClick={() => this.changeDifficulty("easy")}
+              className={this.state.difficulty.easy}
             >
               Easy
-            </button>
-            <button
-              type="button"
-              value="medium"
-              className={this.state.difficulty.medium}
+            </div>
+            <div
               onClick={() => this.changeDifficulty("medium")}
+              className={this.state.difficulty.medium}
             >
               Medium
-            </button>
-            <button
-              type="button"
-              value="hard"
-              className={this.state.difficulty.hard}
+            </div>
+            <div
               onClick={() => this.changeDifficulty("hard")}
+              className={this.state.difficulty.hard}
             >
               Hard
-            </button>
+            </div>
           </div>
           <div className="newGame">
-            <button
-              type="button"
-              className="btn btn-info btn-sm"
-              onClick={() => this.resetGrid()}
-            >
+            <div className="newGameButton" onClick={() => this.resetGrid()}>
               New Game
-            </button>
+            </div>
           </div>
         </div>
         <div className="main">
@@ -242,6 +237,7 @@ const minimax = (grid, depth, difficulty) => {
   };
   let alpha = -Infinity;
   let beta = Infinity;
+  let scoreCompCount = 0;
   //get all non-filled rows
   let legalMoves = getValidDrops(grid);
   //simulate drops for each row that is available
@@ -253,22 +249,23 @@ const minimax = (grid, depth, difficulty) => {
     let moveScore = min(newBoard, alpha, beta, 1, depth, difficulty);
     //find the best score of all the columns
     if (moveScore >= best.score) {
+      scoreCompCount++;
       best.score = moveScore;
       best.move = col;
     }
   });
+  if (difficulty === "easy" && !Math.floor(Math.random() * 3)) {
+    let item = legalMoves[Math.floor(Math.random() * legalMoves.length)];
+    best.move = item;
+  }
   return best;
 };
 
 //find the move that benefits the AI the most, which is the largest possible heuristic score
 const max = (grid, alpha, beta, currentDepth, depth, difficulty) => {
   //if the move leads to a connect 4 or tie game
-  if (isTerminalGrid(grid)) {
-    return evaluateEnd(grid);
-  }
-  // if the minimax has looked as far as it can go with the given depth
-  else if (currentDepth === depth) {
-    return evaluateNonEnd(grid, difficulty);
+  if (isTerminalGrid(grid) || currentDepth === depth) {
+    return evaluate(grid, difficulty);
   }
   //simulate all possible drops again
   //this is a recursive functiom
@@ -308,13 +305,11 @@ const max = (grid, alpha, beta, currentDepth, depth, difficulty) => {
 //find the move that hurts the PLAYER the most, which is the smallest possible heuristic score
 const min = (grid, alpha, beta, currentDepth, depth, difficulty) => {
   //if the move leads to a connect 4 or tie game
-  if (isTerminalGrid(grid)) {
-    return evaluateEnd(grid);
+  //or if the minimax has looked as far as it can go with the given depth
+  if (isTerminalGrid(grid) || currentDepth === depth) {
+    return evaluate(grid, difficulty);
   }
-  // if the minimax has looked as far as it can go with the given depth
-  else if (currentDepth === depth) {
-    return evaluateNonEnd(grid, difficulty);
-  }
+
   //simulate all possible drops again
   //this is a recursive functiom
   //look up minimax pseudocode if confused
@@ -355,67 +350,75 @@ const min = (grid, alpha, beta, currentDepth, depth, difficulty) => {
 //if its the AI, we want that move so return infinity
 //if its the PLAYER, we dont want that move, so return negative infinity
 //else, the game is a tie so we return zero
-const evaluateEnd = (grid) => {
-  if (checkForWin(grid, AI).isWin === true) {
-    return Infinity;
-  } else if (checkForWin(grid, PLAYER).isWin === true) {
-    return -10000000;
-  } else {
-    return 0;
-  }
-};
-
 //if the game has been simulated to the maximum depth
-const evaluateNonEnd = (grid, difficulty) => {
+const evaluate = (grid, difficulty) => {
   let score = 0;
 
-  //score center column, more opportunities with the center column so they are prioritized
-  if (difficulty !== "easy") {
-    for (let row = 0; row < ROWS - 1; row++) {
-      if (grid[row][CENTER_COLUMN].piece === AI) {
-        score += 3;
+  if (isTerminalGrid(grid)) {
+    let checkPlayer = checkForWin(grid, PLAYER);
+    let checkAI = checkForWin(grid, AI);
+    if (checkAI.isWin) {
+      score = Infinity;
+    } else if (checkPlayer.isWin) {
+      score = -Infinity;
+    } else {
+      score = 0;
+    }
+  } else {
+    for (let r = 0; r < ROWS - 1; r++) {
+      if (grid[r][CENTER_COLUMN].piece === 2) {
+        score += 1;
       }
     }
-  }
+    //score horizontal opportunities
+    for (let r = 0; r < ROWS - 1; r++) {
+      for (let c = 0; c < COLUMNS - 3; c++) {
+        let window = [
+          grid[r][c],
+          grid[r][c + 1],
+          grid[r][c + 2],
+          grid[r][c + 3],
+        ];
+        score += evaluateWindow(window, difficulty);
+      }
+    }
+    //score vertical opportunities
+    for (let c = 0; c < COLUMNS; c++) {
+      for (let r = 0; r < ROWS - 4; r++) {
+        let window = [
+          grid[r][c],
+          grid[r + 1][c],
+          grid[r + 2][c],
+          grid[r + 3][c],
+        ];
+        score += evaluateWindow(window, difficulty);
+      }
+    }
 
-  //score horizontal opportunities
-  for (let r = 0; r < ROWS - 1; r++) {
+    //score upward diagonal opportunities
     for (let c = 0; c < COLUMNS - 3; c++) {
-      let window = [grid[r][c], grid[r][c + 1], grid[r][c + 2], grid[r][c + 3]];
-      score += evaluateWindow(window, difficulty);
+      for (let r = 0; r < ROWS - 4; r++) {
+        let window = [
+          grid[r][c],
+          grid[r + 1][c + 1],
+          grid[r + 2][c + 2],
+          grid[r + 3][c + 3],
+        ];
+        score += evaluateWindow(window, difficulty);
+      }
     }
-  }
-  //score vertical opportunities
-  for (let c = 0; c < COLUMNS; c++) {
-    for (let r = 0; r < ROWS - 4; r++) {
-      let window = [grid[r][c], grid[r + 1][c], grid[r + 2][c], grid[r + 3][c]];
-      score += evaluateWindow(window, difficulty);
-    }
-  }
 
-  //score upward diagonal opportunities
-  for (let c = 0; c < COLUMNS - 3; c++) {
-    for (let r = 0; r < ROWS - 4; r++) {
-      let window = [
-        grid[r][c],
-        grid[r + 1][c + 1],
-        grid[r + 2][c + 2],
-        grid[r + 3][c + 3],
-      ];
-      score += evaluateWindow(window, difficulty);
-    }
-  }
-
-  //score downward diagonal opportunites
-  for (let c = 0; c < COLUMNS - 3; c++) {
-    for (let r = 3; r < ROWS - 1; r++) {
-      let window = [
-        grid[r][c],
-        grid[r - 1][c + 1],
-        grid[r - 2][c + 2],
-        grid[r - 3][c + 3],
-      ];
-      score += evaluateWindow(window, difficulty);
+    //score downward diagonal opportunites
+    for (let c = 0; c < COLUMNS - 3; c++) {
+      for (let r = 3; r < ROWS - 1; r++) {
+        let window = [
+          grid[r][c],
+          grid[r - 1][c + 1],
+          grid[r - 2][c + 2],
+          grid[r - 3][c + 3],
+        ];
+        score += evaluateWindow(window, difficulty);
+      }
     }
   }
 
@@ -448,32 +451,18 @@ const evaluateWindow = (window, difficulty) => {
   //but it doesn't try to set itself up for any moves in the future for the most part
   if (difficulty === "easy") {
     if (player_pieces === 3 && empty_pieces === 1) {
-      score -= 10;
-    }
-    if (player_pieces === 2 && empty_pieces === 2) {
-      score += 1;
-    }
-    if (ai_pieces === 4) {
-      score += 1;
-    }
-    if (ai_pieces === 3 && ai_pieces === 1) {
-      score -= 10;
-    }
-    if (ai_pieces === 2 && ai_pieces === 2) {
-      score -= 4;
+      score -= 1;
+    } else if (player_pieces === 2 && empty_pieces === 2) {
+      score -= 2;
     }
   }
   //medium will still not set up for much in the future
   //but the depth is greater so its harder to beat than the easy AI
   if (difficulty === "medium") {
-    if (ai_pieces === 4) {
-      score += 5;
-    } else if (ai_pieces === 3 && empty_pieces === 1) {
-      score -= 5;
-    }
-
     if (player_pieces === 3 && empty_pieces === 1) {
-      score -= 4;
+      score -= 1;
+    } else if (player_pieces === 2 && empty_pieces === 2) {
+      score -= 2;
     }
   }
   //the hard is looking farther into the game for the best moves
@@ -481,13 +470,14 @@ const evaluateWindow = (window, difficulty) => {
   //while simultaneously maximizing the AIs change to win
   if (difficulty === "hard") {
     if (ai_pieces === 4) {
-      score += 100;
+      score += 4;
     } else if (ai_pieces === 3 && empty_pieces === 1) {
-      score += 5;
+      score += 2;
     }
-
-    if (player_pieces === 3 && empty_pieces === 1) {
+    if (player_pieces === 4) {
       score -= 4;
+    } else if (player_pieces === 3 && empty_pieces === 1) {
+      score -= 2;
     }
   }
 
