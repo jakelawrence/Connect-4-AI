@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Connect-4-AI/static/css/main.7cc3aeae.chunk.css",
-    "main.js": "/Connect-4-AI/static/js/main.46188f7f.chunk.js",
-    "main.js.map": "/Connect-4-AI/static/js/main.46188f7f.chunk.js.map",
+    "main.js": "/Connect-4-AI/static/js/main.f477b4bd.chunk.js",
+    "main.js.map": "/Connect-4-AI/static/js/main.f477b4bd.chunk.js.map",
     "runtime-main.js": "/Connect-4-AI/static/js/runtime-main.08c88214.js",
     "runtime-main.js.map": "/Connect-4-AI/static/js/runtime-main.08c88214.js.map",
     "static/css/2.829c9cb5.chunk.css": "/Connect-4-AI/static/css/2.829c9cb5.chunk.css",
     "static/js/2.599a8dc0.chunk.js": "/Connect-4-AI/static/js/2.599a8dc0.chunk.js",
     "static/js/2.599a8dc0.chunk.js.map": "/Connect-4-AI/static/js/2.599a8dc0.chunk.js.map",
     "index.html": "/Connect-4-AI/index.html",
-    "precache-manifest.60e90d9aa14d7a2c6c1cae0feec58175.js": "/Connect-4-AI/precache-manifest.60e90d9aa14d7a2c6c1cae0feec58175.js",
+    "precache-manifest.22a7f91a186e9f196a593b1d2a40f64a.js": "/Connect-4-AI/precache-manifest.22a7f91a186e9f196a593b1d2a40f64a.js",
     "service-worker.js": "/Connect-4-AI/service-worker.js",
     "static/css/2.829c9cb5.chunk.css.map": "/Connect-4-AI/static/css/2.829c9cb5.chunk.css.map",
     "static/css/main.7cc3aeae.chunk.css.map": "/Connect-4-AI/static/css/main.7cc3aeae.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.829c9cb5.chunk.css",
     "static/js/2.599a8dc0.chunk.js",
     "static/css/main.7cc3aeae.chunk.css",
-    "static/js/main.46188f7f.chunk.js"
+    "static/js/main.f477b4bd.chunk.js"
   ]
 }
