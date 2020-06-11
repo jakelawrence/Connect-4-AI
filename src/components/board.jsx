@@ -469,9 +469,7 @@ const evaluateWindow = (window, difficulty) => {
   //it is also minimizing the win for the PLAYER
   //while simultaneously maximizing the AIs change to win
   if (difficulty === "hard") {
-    if (ai_pieces === 4) {
-      score += 4;
-    } else if (ai_pieces === 3 && empty_pieces === 1) {
+    if (ai_pieces === 3 && empty_pieces === 1) {
       score += 2;
     }
     if (player_pieces === 4) {
