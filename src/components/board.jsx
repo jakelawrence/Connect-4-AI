@@ -654,7 +654,6 @@ const drawBoard = () => {
     }
     grid.push(currentRow);
   }
-  console.log(grid);
   return grid;
 };
 
