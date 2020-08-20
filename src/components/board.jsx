@@ -294,7 +294,7 @@ const max = (grid, alpha, beta, currentDepth, depth, difficulty) => {
       alpha = Math.max(alpha, score);
       //we use alpha beta pruing to break out of a simulated move
       if (alpha >= beta) {
-        break;
+        return alpha;
       }
     }
 
@@ -337,7 +337,7 @@ const min = (grid, alpha, beta, currentDepth, depth, difficulty) => {
       beta = Math.min(beta, score);
       //we use alpha beta pruing to break out of a simulated move
       if (alpha >= beta) {
-        break;
+        return beta;
       }
     }
 
