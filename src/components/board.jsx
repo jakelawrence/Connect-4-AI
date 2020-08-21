@@ -249,10 +249,13 @@ const minimax = (grid, depth, difficulty) => {
     let moveScore = min(newBoard, alpha, beta, 1, depth, difficulty);
     console.log("Col " + col + ": " + moveScore)
     //find the best score of all the columns
-    if (moveScore >= best.score) {
+    if (moveScore > best.score) {
       scoreCompCount++;
       best.score = moveScore;
       best.move = col;
+    }
+    if (alpha >= beta) {
+      break
     }
   });
   if (difficulty === "easy" && !Math.floor(Math.random() * 3)) {
