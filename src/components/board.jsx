@@ -255,7 +255,7 @@ const minimax = (grid, depth, difficulty) => {
       best.move = col;
     }
     if (alpha >= beta) {
-      break
+      return
     }
   });
   if (difficulty === "easy" && !Math.floor(Math.random() * 3)) {

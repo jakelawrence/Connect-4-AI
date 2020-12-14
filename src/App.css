@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed&display=swap');
 .App {
   text-align: center;
+  font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 .App-logo {
