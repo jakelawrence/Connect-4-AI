@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "aba8cb81c8e4f2ab23f1b75631aee563",
+    "revision": "7dc75836adf944151cc189772dce257f",
     "url": "/Connect-4-AI/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Connect-4-AI/static/css/2.829c9cb5.chunk.css"
   },
   {
-    "revision": "02ce901863f158f3eec4",
-    "url": "/Connect-4-AI/static/css/main.7cc3aeae.chunk.css"
+    "revision": "164e3fb8363b65cdabd4",
+    "url": "/Connect-4-AI/static/css/main.e700137f.chunk.css"
   },
   {
     "revision": "9454063d044d33308ac3",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Connect-4-AI/static/js/2.599a8dc0.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "02ce901863f158f3eec4",
-    "url": "/Connect-4-AI/static/js/main.f477b4bd.chunk.js"
+    "revision": "164e3fb8363b65cdabd4",
+    "url": "/Connect-4-AI/static/js/main.b4a1ff01.chunk.js"
   },
   {
     "revision": "e50214deae06dd1c7751",
