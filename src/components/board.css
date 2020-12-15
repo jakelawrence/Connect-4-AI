@@ -1,25 +1,25 @@
 .backdrop {
-  padding-top: 10vh;
-
-  width: auto;
+  padding-top: 70px;
+  width: 650px;
+  margin: auto;
 }
-.grid {
+.board {
   transform: rotateX(180deg);
   width: 100%;
 }
 .row {
-  align-items: center;
-  margin: 0 auto;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  position: relative;
+  margin: auto;
+  width: 650px;
 }
 .head {
   margin: auto;
   cursor: default;
   background-color: #fed766;
   box-shadow: 5px 15px 18px #adadad;
-  width: 80vh;
+  width: 650px;
 }
 
 .foot {
@@ -27,20 +27,20 @@
   cursor: default;
   background-color: black;
   box-shadow: 7px 15px 18px #888;
-  height: 6vh;
-  width: 80vh;
+  height: 50px;
+  width: 650px;
 }
 .title {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
   color: black;
-  padding: 1vh;
-  font-size: 2.5vh;
+  padding: 15px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 .main {
   background-color: black;
-  width: 80vh;
+  width: 650px;
   height: 100%;
   margin: auto;
   box-shadow: 7px 15px 18px #888;
@@ -51,16 +51,15 @@
 }
 
 .difficultyGroup {
-  border-radius: 6px;
-  margin-bottom: 1vh;
+  margin-bottom: 10px;
 }
 
 .difficultyButton {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  font-size: 1.5vh;
+  font-size: 12px;
   font-weight: bold;
   display: inline-block;
-  margin: 1vh;
+  margin: 10px;
   cursor: pointer;
 }
 
@@ -70,10 +69,10 @@
 
 .difficultyButtonSelected {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  font-size: 1.5vh;
+  font-size: 12px;
   font-weight: bold;
   display: inline-block;
-  margin: 1vh;
+  margin: 10px;
   cursor: pointer;
   text-decoration: underline;
 }
@@ -81,21 +80,47 @@
 .newGameButton {
   color: white;
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
-  font-size: 1.5vh;
+  font-size: 12px;
   font-weight: bold;
   display: inline-block;
-  margin: 1vh;
   cursor: pointer;
-  padding: 0.7vh;
+  padding: 6px;
   border-radius: 2px;
   background-color: #17a2b8;
 }
 
 .newGameButton:hover {
-  transition: 0.5s;
   background-color: #1c8d9e;
 }
 
 .newGame {
-  padding-bottom: 1vh;
+  padding-bottom: 20px;
+  padding-top: 5px;
+}
+
+@media only screen and (max-width: 650px) {
+  .row{
+    width: 100%;
+  }
+  .foot{
+    width: 100%;
+  }
+  .main {
+    width: 100%;
+  }
+  .backdrop {
+    width: 100%;
+  }
+  .head {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .backdrop {
+    padding-top: 0;
+  }
+  .foot{
+    height:400px
+  }
 }
