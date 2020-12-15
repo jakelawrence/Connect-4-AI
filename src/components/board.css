@@ -1,34 +1,39 @@
-.backdrop {
-  padding-top: 70px;
+.main {
   width: 650px;
   margin: auto;
+  margin-top: 7vh;
+  background-color: black;
+  border-radius: 12px 12px;
+  box-shadow: 5px 15px 18px #adadad;
 }
-.board {
-  transform: rotateX(180deg);
-  width: 100%;
-}
-.row {
+
+.pieceRow {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   margin: auto;
-  width: 650px;
+  width: 420px;
 }
 .head {
   margin: auto;
   cursor: default;
   background-color: #fed766;
-  box-shadow: 5px 15px 18px #adadad;
-  width: 650px;
+  
+  width: 100%;
+  border-radius: 10px 10px 0 0;
 }
 
 .foot {
   margin: auto;
   cursor: default;
   background-color: black;
-  box-shadow: 7px 15px 18px #888;
-  height: 50px;
-  width: 650px;
+  height: 70px;
+  width: 100%;
+  border-radius: 0 0 10px 10px;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+  color: black;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
 }
 .title {
   font-family: Futura, Trebuchet MS, Arial, sans-serif;
@@ -38,12 +43,12 @@
   font-weight: bold;
 }
 
-.main {
+.board {
   background-color: black;
-  width: 650px;
-  height: 100%;
+  width: 420px;
   margin: auto;
-  box-shadow: 7px 15px 18px #888;
+  transform: rotateX(180deg);
+  
 }
 
 .btn {
@@ -99,28 +104,41 @@
 }
 
 @media only screen and (max-width: 650px) {
-  .row{
-    width: 100%;
-  }
-  .foot{
-    width: 100%;
-  }
+  
+  
   .main {
     width: 100%;
-  }
-  .backdrop {
-    width: 100%;
+    border-radius: 0;
   }
   .head {
     width: 100%;
+    border-radius: 0;
   }
-}
-
-@media only screen and (max-width: 400px) {
-  .backdrop {
-    padding-top: 0;
+  .board{
+    width: 100%;
+    height: 50%;
+  }
+  .pieceRow{
+    width: 100%;
   }
   .foot{
-    height:400px
+    width: 100%;
+    border-radius: 0;
+  }
+  
+}
+
+@media only screen and (max-width: 430px) {
+  .main{
+    margin-top: 0;
+    border-radius: 0;
+    box-shadow: none;
+    height: 100vh;
+  }
+  .foot{
+    border-radius: 0;
+  }
+  .head{
+    border-radius: 0;
   }
 }

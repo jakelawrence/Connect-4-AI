@@ -38,11 +38,19 @@
 }
 
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 430px) {
   .piece {
     width: 35px;
     height: 35px;
     border-radius: 50%;
     margin: 7px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .piece {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 5px;
   }
 }

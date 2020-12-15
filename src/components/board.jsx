@@ -142,7 +142,7 @@ class Board extends Component {
     const { board } = this.state;
 
     return (
-      <div className="backdrop">
+      <div className="main">
         <div className="head">
           <div className="title">CONNECT 4 AI</div>
           <div className="difficultyGroup">
@@ -171,46 +171,42 @@ class Board extends Component {
             </div>
           </div>
         </div>
-        <div className="main">
-          <div className="board">
-            {board.map((row, rowIdx) => {
-              return (
-                <div className="row" key={rowIdx}>
-                  {row.map((node, nodeIdx) => {
-                    const {
-                      row,
-                      col,
-                      isEmpty,
-                      isPlayer,
-                      isAI,
-                      isSelector,
-                      isWinningPiece,
-                    } = node;
+        <div className="board">
+          {board.map((row, rowIdx) => {
+            return (
+              <div className="pieceRow" key={rowIdx}>
+                {row.map((node, nodeIdx) => {
+                  const {
+                    row,
+                    col,
+                    isEmpty,
+                    isPlayer,
+                    isAI,
+                    isSelector,
+                    isWinningPiece,
+                  } = node;
 
-                    return (
-                      <Node
-                        style={{ backgroundColor: "blue" }}
-                        key={nodeIdx}
-                        col={col}
-                        row={row}
-                        isEmpty={isEmpty}
-                        isPlayer={isPlayer}
-                        isAI={isAI}
-                        isSelector={isSelector}
-                        isWinningPiece={isWinningPiece}
-                        onClick={(col) => this.handleClick(col)}
-                      ></Node>
-                    );
-                  })}
-                </div>
-              );
-            })}
-          </div>
+                  return (
+                    <Node
+                      style={{ backgroundColor: "blue" }}
+                      key={nodeIdx}
+                      col={col}
+                      row={row}
+                      isEmpty={isEmpty}
+                      isPlayer={isPlayer}
+                      isAI={isAI}
+                      isSelector={isSelector}
+                      isWinningPiece={isWinningPiece}
+                      onClick={(col) => this.handleClick(col)}
+                    ></Node>
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
-        <div className="foot">
-          <div style={{ color: this.state.winnerColor }} className="title">
+        <div style={{ color: this.state.winnerColor }} className="foot">
             {this.state.winner}
-          </div>
         </div>
       </div>
     );
