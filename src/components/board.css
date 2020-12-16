@@ -137,6 +137,9 @@
   }
   .foot{
     border-radius: 0;
+    height: 20%;
+    display: grid;
+    place-items: center;
   }
   .head{
     border-radius: 0;
