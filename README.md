@@ -1,68 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Connect 4 AI
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+This repository contains a React application that implements a Connect 4 game with an artificial intelligence opponent. The game is played on a 7-column and 6-row grid, and the goal is to get four of your pieces in a row (horizontally, vertically, or diagonally) before your opponent does.
 
-### `npm start`
+## The Rules of Connect 4
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. The game is played between two players, one using red pieces and the other using yellow pieces.
+2. Players take turns dropping their pieces into any of the seven columns.
+3. The pieces fall to the bottom-most available row in the chosen column.
+4. The first player to get four of their pieces in a row (horizontally, vertically, or diagonally) wins the game.
+5. If all 42 spaces on the grid are filled and no player has four in a row, the game is a draw.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## The AI Algorithm: Minimax
 
-### `npm test`
+The artificial intelligence opponent in this Connect 4 game uses the minimax algorithm to determine its moves. The minimax algorithm is a decision-making algorithm commonly used in two-player games like Connect 4. It explores all possible future moves and chooses the move that leads to the best outcome for the AI player, assuming that the other player will play optimally as well.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The algorithm evaluates the game tree by assigning a score to each node in the tree. Nodes representing terminal states (a win or draw for either player) are assigned a score of +1, -1, or 0, depending on the outcome. The score for non-terminal nodes is calculated based on the scores of its children, with the AI player maximizing its score and the other player minimizing it.
 
-### `npm run build`
+The AI player uses the minimax algorithm to determine the best move by choosing the child node with the highest score.
+Running the Application Locally
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Running the Application Locally
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+To run the Connect 4 AI application on your local machine, follow these steps:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository to your local machine using git clone https://github.com/jakelawrence/Connect-4-AI.git.
+2. Navigate to the repository directory using the command line and run npm install to install all necessary dependencies.
+3. Once the dependencies have been installed, run npm start to start the development server.
+4. Open your browser and navigate to http://localhost:3000 to play the game.
 
-### `npm run eject`
+## Conclusion
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+This Connect 4 AI application allows you to play against an AI opponent that uses the minimax algorithm to make its moves. By running the application locally, you can see how the AI algorithm works and even try to beat it!
