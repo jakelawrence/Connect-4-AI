@@ -4,7 +4,7 @@
 
 A live demo of the Connect 4 AI application can be found at https://jakelawrence.github.io/Connect-4-AI
 
-![A Connect 4 board](https://raw.githubusercontent.com/jakelawrence/Connect-4-AI/master/img/board.jpg)
+![A Connect 4 board](https://raw.githubusercontent.com/jakelawrence/Connect-4-AI/master/img/board.jpg?raw=true)
 
 ## Introduction
 
