@@ -18,12 +18,11 @@ This repository contains a React application that implements a Connect 4 game wi
 
 ## The AI Algorithm: Minimax
 
-The artificial intelligence opponent in this Connect 4 game uses the minimax algorithm to determine its moves. The minimax algorithm is a decision-making algorithm commonly used in two-player games like Connect 4. It explores all possible future moves and chooses the move that leads to the best outcome for the AI player, assuming that the other player will play optimally as well.
+The artificial intelligence opponent in this Connect 4 game uses the minimax algorithm to determine its moves. The minimax algorithm is a decision-making algorithm commonly used in two-player games. It explores all possible future moves and chooses the move that leads to the best outcome for the AI player, assuming that the other player will play optimally as well.
 
 The algorithm evaluates the game tree by assigning a score to each node in the tree. Nodes representing terminal states (a win or draw for either player) are assigned a score of +1, -1, or 0, depending on the outcome. The score for non-terminal nodes is calculated based on the scores of its children, with the AI player maximizing its score and the other player minimizing it.
 
 The AI player uses the minimax algorithm to determine the best move by choosing the child node with the highest score.
-Running the Application Locally
 
 ## Running the Application Locally
 
