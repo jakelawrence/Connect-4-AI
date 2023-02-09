@@ -4,6 +4,8 @@
 
 A live demo of the Connect 4 AI application can be found at https://jakelawrence.github.io/Connect-4-AI
 
+![A Connect 4 board](https://raw.githubusercontent.com/jakelawrence/Connect-4-AI/master/img/board.jpg)
+
 ## Introduction
 
 This repository contains a React application that implements a Connect 4 game with an artificial intelligence opponent. The game is played on a 7-column and 6-row grid, and the goal is to get four of your pieces in a row (horizontally, vertically, or diagonally) before your opponent does.
