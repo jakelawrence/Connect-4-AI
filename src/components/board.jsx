@@ -25,7 +25,7 @@ class Board extends Component {
       selectedDifficulty: "easy",
 
       //depth for the minimax algorithm
-      depth: 1,
+      depth: 2,
 
       //css classes for buttons
       easy: "difficultyButtonSelected",
@@ -56,7 +56,7 @@ class Board extends Component {
         updateDifficulty.easy = "difficultyButtonSelected";
         updateDifficulty.medium = "difficultyButton";
         updateDifficulty.hard = "difficultyButton";
-        updateDifficulty.depth = 2;
+        updateDifficulty.depth = 1;
         this.resetBoard();
         break;
       case "medium":
@@ -72,7 +72,7 @@ class Board extends Component {
         updateDifficulty.easy = "difficultyButton";
         updateDifficulty.medium = "difficultyButton";
         updateDifficulty.hard = "difficultyButtonSelected";
-        updateDifficulty.depth = 5;
+        updateDifficulty.depth = 4;
         this.resetBoard();
         break;
     }
@@ -113,12 +113,7 @@ class Board extends Component {
         let rowAI = getNextOpenRow(minimaxReturn.move, this.state.board);
         //double check the row isnt full
         if (rowAI < ROWS - 1) {
-          let newBoard = getNewBoard(
-            rowAI,
-            minimaxReturn.move,
-            this.state.board,
-            AI
-          );
+          let newBoard = getNewBoard(rowAI, minimaxReturn.move, this.state.board, AI);
           this.setState({ board: newBoard });
           //check for four in a row
           let forWinAI = checkForWin(this.state.board, AI);
@@ -146,22 +141,13 @@ class Board extends Component {
         <div className="head">
           <div className="title">CONNECT 4 AI</div>
           <div className="difficultyGroup">
-            <div
-              onClick={() => this.changeDifficulty("easy")}
-              className={this.state.difficulty.easy}
-            >
+            <div onClick={() => this.changeDifficulty("easy")} className={this.state.difficulty.easy}>
               Easy
             </div>
-            <div
-              onClick={() => this.changeDifficulty("medium")}
-              className={this.state.difficulty.medium}
-            >
+            <div onClick={() => this.changeDifficulty("medium")} className={this.state.difficulty.medium}>
               Medium
             </div>
-            <div
-              onClick={() => this.changeDifficulty("hard")}
-              className={this.state.difficulty.hard}
-            >
+            <div onClick={() => this.changeDifficulty("hard")} className={this.state.difficulty.hard}>
               Hard
             </div>
           </div>
@@ -176,15 +162,7 @@ class Board extends Component {
             return (
               <div className="pieceRow" key={rowIdx}>
                 {row.map((node, nodeIdx) => {
-                  const {
-                    row,
-                    col,
-                    isEmpty,
-                    isPlayer,
-                    isAI,
-                    isSelector,
-                    isWinningPiece,
-                  } = node;
+                  const { row, col, isEmpty, isPlayer, isAI, isSelector, isWinningPiece } = node;
 
                   return (
                     <Node
@@ -206,7 +184,7 @@ class Board extends Component {
           })}
         </div>
         <div style={{ color: this.state.winnerColor }} className="foot">
-            {this.state.winner}
+          {this.state.winner}
         </div>
       </div>
     );
@@ -226,14 +204,14 @@ const dropPiece = (board, col, turn) => {
 //uses alpha beta pruing to speed up the process
 //finds the most effective move based on heuristuc score
 const minimax = (board, depth, difficulty) => {
-  let best = {
-    move: null,
-    score: -Infinity,
-  };
   let alpha = -Infinity;
   let beta = Infinity;
   //get all non-filled rows
   let legalMoves = getValidDrops(board);
+  let best = {
+    move: legalMoves[Math.floor(Math.random() * legalMoves.length)],
+    score: -Infinity,
+  };
   //simulate drops for each row that is available
   legalMoves.forEach((col) => {
     //create a deep copy of board to avoid changing the state
@@ -250,7 +228,7 @@ const minimax = (board, depth, difficulty) => {
       return;
     }
   });
-  if (difficulty === "easy" && !Math.floor(Math.random() * 3)) {
+  if (difficulty === "easy" && !Math.floor(Math.random() * 2)) {
     let item = legalMoves[Math.floor(Math.random() * legalMoves.length)];
     best.move = item;
   }
@@ -277,14 +255,7 @@ const max = (board, alpha, beta, currentDepth, depth, difficulty) => {
       //we do this because we are just simulating the drops
       let boardCopy = JSON.parse(JSON.stringify(board));
       let newBoard = dropPiece(boardCopy, legalMoves[i], AI);
-      let moveScore = min(
-        newBoard,
-        alpha,
-        beta,
-        currentDepth + 1,
-        depth,
-        difficulty
-      );
+      let moveScore = min(newBoard, alpha, beta, currentDepth + 1, depth, difficulty);
       //find the score that is best for AI and set it to the new best score
       score = Math.max(score, moveScore);
       alpha = Math.max(alpha, score);
@@ -320,14 +291,7 @@ const min = (board, alpha, beta, currentDepth, depth, difficulty) => {
       //we do this because we are just simulating the drops
       let boardCopy = JSON.parse(JSON.stringify(board));
       let newBoard = dropPiece(boardCopy, legalMoves[i], PLAYER);
-      let moveScore = max(
-        newBoard,
-        alpha,
-        beta,
-        currentDepth + 1,
-        depth,
-        difficulty
-      );
+      let moveScore = max(newBoard, alpha, beta, currentDepth + 1, depth, difficulty);
       //find the score that inhibits PLAYER the most and set it to the new best score
       score = Math.min(score, moveScore);
       beta = Math.min(beta, score);
@@ -369,24 +333,14 @@ const evaluate = (board, difficulty) => {
     //score horizontal opportunities
     for (let r = 0; r < ROWS - 1; r++) {
       for (let c = 0; c < COLUMNS - 3; c++) {
-        let window = [
-          board[r][c],
-          board[r][c + 1],
-          board[r][c + 2],
-          board[r][c + 3],
-        ];
+        let window = [board[r][c], board[r][c + 1], board[r][c + 2], board[r][c + 3]];
         score += evaluateWindow(window, difficulty);
       }
     }
     //score vertical opportunities
     for (let c = 0; c < COLUMNS; c++) {
       for (let r = 0; r < ROWS - 4; r++) {
-        let window = [
-          board[r][c],
-          board[r + 1][c],
-          board[r + 2][c],
-          board[r + 3][c],
-        ];
+        let window = [board[r][c], board[r + 1][c], board[r + 2][c], board[r + 3][c]];
         score += evaluateWindow(window, difficulty);
       }
     }
@@ -394,12 +348,7 @@ const evaluate = (board, difficulty) => {
     //score upward diagonal opportunities
     for (let c = 0; c < COLUMNS - 3; c++) {
       for (let r = 0; r < ROWS - 4; r++) {
-        let window = [
-          board[r][c],
-          board[r + 1][c + 1],
-          board[r + 2][c + 2],
-          board[r + 3][c + 3],
-        ];
+        let window = [board[r][c], board[r + 1][c + 1], board[r + 2][c + 2], board[r + 3][c + 3]];
         score += evaluateWindow(window, difficulty);
       }
     }
@@ -407,12 +356,7 @@ const evaluate = (board, difficulty) => {
     //score downward diagonal opportunites
     for (let c = 0; c < COLUMNS - 3; c++) {
       for (let r = 3; r < ROWS - 1; r++) {
-        let window = [
-          board[r][c],
-          board[r - 1][c + 1],
-          board[r - 2][c + 2],
-          board[r - 3][c + 3],
-        ];
+        let window = [board[r][c], board[r - 1][c + 1], board[r - 2][c + 2], board[r - 3][c + 3]];
         score += evaluateWindow(window, difficulty);
       }
     }
@@ -448,8 +392,6 @@ const evaluateWindow = (window, difficulty) => {
   if (difficulty === "easy") {
     if (player_pieces === 3 && empty_pieces === 1) {
       score -= 1;
-    } else if (player_pieces === 2 && empty_pieces === 2) {
-      score -= 2;
     }
   }
   //medium will still not set up for much in the future
@@ -496,11 +438,7 @@ const getValidDrops = (board) => {
 
 const isTerminalBoard = (board) => {
   let validDrops = getValidDrops(board);
-  if (
-    checkForWin(board, PLAYER).isWin ||
-    checkForWin(board, AI).isWin ||
-    validDrops.length === 0
-  ) {
+  if (checkForWin(board, PLAYER).isWin || checkForWin(board, AI).isWin || validDrops.length === 0) {
     return true;
   } else {
     return false;
@@ -530,12 +468,7 @@ const checkForWin = (board, turn) => {
   };
   for (let c = 0; c < COLUMNS - 3; c++) {
     for (let r = 0; r < ROWS - 1; r++) {
-      if (
-        board[r][c].piece === turn &&
-        board[r][c + 1].piece === turn &&
-        board[r][c + 2].piece === turn &&
-        board[r][c + 3].piece === turn
-      ) {
+      if (board[r][c].piece === turn && board[r][c + 1].piece === turn && board[r][c + 2].piece === turn && board[r][c + 3].piece === turn) {
         fourInARow.one.r = r;
         fourInARow.one.c = c;
         fourInARow.two.r = r;
@@ -552,12 +485,7 @@ const checkForWin = (board, turn) => {
   //check vertical wins
   for (let c = 0; c < COLUMNS; c++) {
     for (let r = 0; r < ROWS - 4; r++) {
-      if (
-        board[r][c].piece === turn &&
-        board[r + 1][c].piece === turn &&
-        board[r + 2][c].piece === turn &&
-        board[r + 3][c].piece === turn
-      ) {
+      if (board[r][c].piece === turn && board[r + 1][c].piece === turn && board[r + 2][c].piece === turn && board[r + 3][c].piece === turn) {
         fourInARow.one.r = r;
         fourInARow.one.c = c;
         fourInARow.two.r = r + 1;
