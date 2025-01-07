@@ -443,7 +443,7 @@ const evaluateWindow = (window, difficulty) => {
     }
   }
 
-  //easy difficulty will still preven the player from getting 4 in a fours
+  //easy difficulty will still prevent the player from getting 4 in a fours
   //but it doesn't try to set itself up for any moves in the future for the most part
   if (difficulty === "easy") {
     if (player_pieces === 3 && empty_pieces === 1) {
@@ -465,13 +465,19 @@ const evaluateWindow = (window, difficulty) => {
   //it is also minimizing the win for the PLAYER
   //while simultaneously maximizing the AIs change to win
   if (difficulty === "hard") {
+    if (ai_pieces === 4) {
+      score += 100; // Ensure winning moves are highly prioritized.
+    }
     if (ai_pieces === 3 && empty_pieces === 1) {
-      score += 2;
+      score += 10; // Encourage moves that lead to a win.
     }
     if (player_pieces === 4) {
       score -= 4;
     } else if (player_pieces === 3 && empty_pieces === 1) {
       score -= 2;
+    }
+    if (player_pieces === 4) {
+      score -= 100; // Block winning moves for the player.
     }
   }
 
